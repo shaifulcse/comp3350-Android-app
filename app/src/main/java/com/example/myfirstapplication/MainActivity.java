@@ -15,7 +15,9 @@ import androidx.core.graphics.Insets;
 import androidx.core.view.ViewCompat;
 import androidx.core.view.WindowInsetsCompat;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -43,10 +45,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 DBHelper helper = new DBHelper(MainActivity.this);
-                List<String> allContacts = helper.getAllContacts();
-                for (String contact: allContacts){
-                    Log.d("contacts", contact);
+                HashMap<String, String> allContacts = helper.getAllContacts();
+                for (String name: allContacts.keySet()){
+                    Log.d("contacts", name + " "+allContacts.get(name));
                 }
+
+                Intent intent = new Intent(MainActivity.this, ShowContacts.class);
+                intent.putExtra("contacts", allContacts);
+                startActivity(intent);
+
             }
         });
 

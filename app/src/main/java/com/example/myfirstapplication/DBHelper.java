@@ -8,12 +8,14 @@ import android.database.sqlite.SQLiteOpenHelper;
 import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class DBHelper extends SQLiteOpenHelper {
 
     private static final String DB_NAME = "my_contacts.db";
-    private static final int DB_VERSION = 1;
+    private static final int DB_VERSION = 2;
 
     public DBHelper(Context context) {
         super(context, DB_NAME, null, DB_VERSION);
@@ -42,16 +44,16 @@ public class DBHelper extends SQLiteOpenHelper {
 
     }
 
-    public List<String> getAllContacts() {
+    public HashMap<String, String> getAllContacts() {
         SQLiteDatabase db = getReadableDatabase();
-        List<String> contacts = new ArrayList<>();
+        HashMap<String, String> contacts = new HashMap<>();
 
         Cursor cursor = db.rawQuery("SELECT * FROM contacts ORDER BY _id DESC", null);
 
         while (cursor.moveToNext()) {
             String name  = cursor.getString(cursor.getColumnIndexOrThrow("name"));
             String phone = cursor.getString(cursor.getColumnIndexOrThrow("phone"));
-            contacts.add(name + " — " + phone);
+            contacts.put(name, phone);
         }
         cursor.close();
 

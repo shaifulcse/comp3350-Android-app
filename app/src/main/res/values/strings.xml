@@ -2,5 +2,5 @@
     <string name="app_name">MyFirstApplication</string>
     <string name="main_add_contact">Add Contact</string>
     <string name="main_show_contacts">Show Contacts</string>
-    <string name = "editName">Name></string>
+    <string name="editName">Name></string>
 </resources>
